@@ -19,5 +19,7 @@ from simpleDjangoApp import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^simple.html$', views.simpleDjangoApp_login),
+    url(r'^simple.html$', views.simpleDjangoApp_index),
+    url(r'^login.html$', views.simpleDjangoApp_login),
+    url(r'^exchange.html$', views.simpleDjangoApp_exchange),
 ]
