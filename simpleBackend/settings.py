@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-STATIC_URL = '/statics/'
+STATIC_URL = '/font_statics/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "statics"),
