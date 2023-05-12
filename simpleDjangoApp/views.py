@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render, redirect
-from models import *
+import models
 
 # Create your views here.
 def simpleDjangoApp_index(request):
@@ -20,7 +20,8 @@ def simpleDjangoApp_exchange(request):
     return render(request, "exchange.html")
 
 def simpleDjangoApp_showClasses(request):
-    classesData = myClass.objects.all()
+    classesData = models.myClass.objects.all()
+    print "mmmmmmmmmm"
     for aClass in classesData:
         print aClass.caption
     return render(request, "classes.html")
