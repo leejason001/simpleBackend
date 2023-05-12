@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 import models
 
 # Create your views here.
@@ -23,3 +24,10 @@ def simpleDjangoApp_showClasses(request):
     classesData = models.myClass.objects.all()
 
     return render(request, "classes.html", {"classesData":classesData})
+
+def simpleDjangoApp_editAClass(request):
+    pass
+
+def simpleDjangoApp_delAClass(request):
+    print request.POST.get("delingClass_id")
+    return HttpResponse(2222)
