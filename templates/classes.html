@@ -3,15 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/font_statics/jq/jquery-1.10.2.min.js"></script>
 </head>
-<body>
-    <table>
-            {% for aClass in classesData %}
-                <tr>
-                    <td>{{aClass.caption}}</td>
-                </tr>
-            {% endfor %}
-    </table>
+    <body>
+        <table>
+                {% for aClass in classesData %}
+                    <tr>
+                        <td>{{aClass.caption}}</td>
+                        <td aClass_id={{aClass.id}}><a class="aClass_edit">编辑</a>|<a class="aClass_del">删除</a></td>
+                    </tr>
+                {% endfor %}
+        </table>
+        <script>
+            $(document).ready(function () {
+                $(".aClass_del").click(function () {
 
-</body>
+                    console.log($(this))
+                })
+            })
+
+        </script>
+      </body>
 </html>
