@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^simple.html$', views.simpleDjangoApp_index),
     url(r'^login.html$', views.simpleDjangoApp_login),
     url(r'^exchange.html$', views.simpleDjangoApp_exchange),
+    url(r'^classes.html$', views.simpleDjangoApp_showClasses, name="classes_url"),
 ]
