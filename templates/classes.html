@@ -5,6 +5,13 @@
     <title>Title</title>
 </head>
 <body>
+    <table>
+            {% for aClass in classesData %}
+                <tr>
+                    <td>{{aClass.caption}}</td>
+                </tr>
+            {% endfor %}
+    </table>
 
 </body>
 </html>

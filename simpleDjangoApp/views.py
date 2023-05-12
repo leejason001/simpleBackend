@@ -21,7 +21,5 @@ def simpleDjangoApp_exchange(request):
 
 def simpleDjangoApp_showClasses(request):
     classesData = models.myClass.objects.all()
-    print "mmmmmmmmmm"
-    for aClass in classesData:
-        print aClass.caption
-    return render(request, "classes.html")
+
+    return render(request, "classes.html", {"classesData":classesData})
