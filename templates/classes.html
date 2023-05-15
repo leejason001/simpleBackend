@@ -4,20 +4,41 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/font_statics/css/classes.css"/>
     <script type="text/javascript" src="/font_statics/jq/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="/font_statics/jq/jquery.cookie.js"></script>
 </head>
     <body>
+        <div id="addAClass_background" class="modalDialogBackground hideModalDialog displayModalDialog">
+            <div class="modalDialog">
+                <div>请输入班级名称：<input type="text"/></div>
+                <div><button class="sureButton">确认</button><button class="cancelButton">取消</button></div>
+            </div>
+        </div>
         <table>
-                {% for aClass in classesData %}
-                    <tr aClass_id={{aClass.id}}>
-                        <td>{{aClass.caption}}</td>
-                        <td><a class="aClass_edit">编辑</a>|<a class="aClass_del">删除</a></td>
-                    </tr>
-                {% endfor %}
+            <tr><td id="addAClass">增加一个班级</td></tr>
+            {% for aClass in classesData %}
+                <tr aClass_id={{aClass.id}}>
+                    <td>{{aClass.caption}}</td>
+                    <td><a class="aClass_edit">编辑</a>|<a class="aClass_del">删除</a></td>
+                </tr>
+            {% endfor %}
         </table>
         <script type="text/javascript">
             $(document).ready(function () {
+                $("#addAClass").click(function () {
+                    $("#addAClass_background").removeClass("hideModalDialog")
+                })
+                $("#addAClass_background .sureButton").click(function () {
+                    $.ajax({
+                        url:"/addAClass",
+                        type:"post",
+                        data:{"newClassCaption":$("#addAClass_background input").val()},
+                        success:function (data, status) {
+                            $("#addAClass_background").addClass("hideModalDialog")
+                        }
+                    })
+                })
                 var csrftoken = $.cookie('csrftoken');
 
                 function csrfSafeMethod(method) {

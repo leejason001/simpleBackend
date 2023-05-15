@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^classes.html$', views.simpleDjangoApp_showClasses, name="classes_url"),
     url(r'^editAClass$', views.simpleDjangoApp_editAClass, name="edit_aClass_url"),
     url(r'^delAClass$', views.simpleDjangoApp_delAClass),
+    url(r'^addAClass$', views.simpleDjangoApp_addAClass),
 ]

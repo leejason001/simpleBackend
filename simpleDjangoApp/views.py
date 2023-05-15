@@ -30,6 +30,10 @@ def simpleDjangoApp_editAClass(request):
 
 def simpleDjangoApp_delAClass(request):
     models.myClass.objects.get(id=request.POST.get("delingClass_id")).delete()
-
-    
     return HttpResponse(2222)
+
+def simpleDjangoApp_addAClass(request):
+    models.myClass.objects.create(
+        caption=request.POST.get("newClassCaption")
+    )
+    return HttpResponse(222)
