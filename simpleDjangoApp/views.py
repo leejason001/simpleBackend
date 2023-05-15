@@ -29,5 +29,7 @@ def simpleDjangoApp_editAClass(request):
     pass
 
 def simpleDjangoApp_delAClass(request):
-    print request.POST.get("delingClass_id")
+    models.myClass.objects.get(id=request.POST.get("delingClass_id")).delete()
+
+    
     return HttpResponse(2222)
