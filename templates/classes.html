@@ -34,12 +34,16 @@
 
 
                 $(".aClass_del").click(function () {
+                    var clicked_del = $(this)
                     $.ajax({
                         url:"/delAClass",
                         type:"post",
                         data:{"delingClass_id":$(this).parents("tr").attr("aClass_id")},
-                        success:function () {
-                            console.log($(this).parents("tr"))
+                        success:function (data, textStatus, xhr) {
+                            if ("success" == textStatus) {
+                                clicked_del.parents("tr").remove()
+                            }
+
                         }
                     })
                 })
