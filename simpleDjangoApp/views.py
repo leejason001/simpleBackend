@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import models
+import json
 
 # Create your views here.
 def simpleDjangoApp_index(request):
@@ -22,6 +23,11 @@ def simpleDjangoApp_exchange(request):
 
 def simpleDjangoApp_showClasses(request):
     classesData = models.myClass.objects.all()
+    for data in classesData:
+        data.caption = data.caption.encode("utf-8")
+        print data.caption
+        print type(data.caption)
+        print type(data.id)
 
     return render(request, "classes.html", {"classesData":classesData})
 
@@ -33,7 +39,8 @@ def simpleDjangoApp_delAClass(request):
     return HttpResponse(2222)
 
 def simpleDjangoApp_addAClass(request):
-    models.myClass.objects.create(
+    newClass = models.myClass.objects.create(
         caption=request.POST.get("newClassCaption")
     )
-    return HttpResponse(222)
+
+    return HttpResponse(json.dumps({"newClass_id":newClass.id, "newClass_caption":newClass.caption}))
