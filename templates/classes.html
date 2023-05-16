@@ -49,10 +49,13 @@
                 $("#addAClass").click(function () {
                     $("#addAClass_background").removeClass("hideModalDialog")
                 })
-                $("#classesCamp .aClass_edit").click(function () {
+                function aClass_edit_click(theClassElement) {
                     $("#editAClass_background").removeClass("hideModalDialog")
-                    $("#editAClass_background input").attr("theClass_id", $(this).parents("tr").attr("aClass_id"))
-                    $("#editAClass_background input").val($(this).parent().siblings(".aClass_caption").html())
+                    $("#editAClass_background input").attr("theClass_id", theClassElement.parents("tr").attr("aClass_id"))
+                    $("#editAClass_background input").val(theClassElement.parent().siblings(".aClass_caption").html())
+                }
+                $("#classesCamp .aClass_edit").click(function () {
+                    aClass_edit_click($(this))
                 })
                 $("#editAClass_background .sureButton").click(function () {
                     var theEditClassElement = $("#editAClass_background input")
@@ -66,20 +69,6 @@
                         }
                     })
                 })
-                $("#addAClass_background .sureButton").click(function () {
-                    $.ajax({
-                        url:"/addAClass",
-                        type:"post",
-                        data:{"newClassCaption":$("#addAClass_background input").val()},
-                        success:function (data, status) {
-                            newClassData = JSON.parse(data)
-                            $("table#classesCamp").append($("<tr aClass_id='"+newClassData.newClass_id+"'><td>"+newClassData.newClass_caption+"</td><td><a class=\"aClass_edit\">编辑</a>|<a class=\"aClass_del\">删除</a></td></tr>"))
-                            $("#addAClass_background").addClass("hideModalDialog")
-                        }
-                    })
-                })
-
-
 
                 $(".aClass_del").click(function () {
                     var clicked_del = $(this)
@@ -95,6 +84,27 @@
                         }
                     })
                 })
+                $("#addAClass_background .sureButton").click(function () {
+                    $.ajax({
+                        url:"/addAClass",
+                        type:"post",
+                        data:{"newClassCaption":$("#addAClass_background input").val()},
+                        success:function (data, status) {
+                            newClassData = JSON.parse(data)
+                            var newClassHtmlElement = $("<tr aClass_id='"+newClassData.newClass_id+"'><td class=\"aClass_caption\">"+newClassData.newClass_caption+"</td><td><a class=\"aClass_edit\">编辑</a>|<a class=\"aClass_del\">删除</a></td></tr>")
+                            $("table#classesCamp").append(newClassHtmlElement)
+                            newClassHtmlElement.find(".aClass_edit").on("click", function(){
+                                aClass_edit_click($(this))
+                            })
+
+                            $("#addAClass_background").addClass("hideModalDialog")
+                        }
+                    })
+                })
+
+
+
+
             })
 
         </script>
