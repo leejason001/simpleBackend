@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'^login.html$', views.simpleDjangoApp_login),
     url(r'^exchange.html$', views.simpleDjangoApp_exchange),
     url(r'^classes.html$', views.simpleDjangoApp_showClasses, name="classes_url"),
-    url(r'^editAClass$', views.simpleDjangoApp_editAClass, name="edit_aClass_url"),
+    url(r'^editAClass$', views.simpleDjangoApp_editAClass),
     url(r'^delAClass$', views.simpleDjangoApp_delAClass),
     url(r'^addAClass$', views.simpleDjangoApp_addAClass),
 ]

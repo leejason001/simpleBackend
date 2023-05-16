@@ -15,35 +15,24 @@
                 <div><button class="sureButton">确认</button><button class="cancelButton">取消</button></div>
             </div>
         </div>
+        <div id="editAClass_background" class="modalDialogBackground hideModalDialog displayModalDialog">
+            <div class="modalDialog">
+                <div>请输入班级名称：<input type="text"/></div>
+                <div><button class="sureButton">确认</button><button class="cancelButton">取消</button></div>
+            </div>
+        </div>
         <table id="classesCamp">
             <tr><td id="addAClass">增加一个班级</td></tr>
             {% for aClass in classesData %}
                 <tr aClass_id={{aClass.id}}>
-                    <td>{{aClass.caption}}</td>
+                    <td class="aClass_caption">{{aClass.caption}}</td>
                     <td><a class="aClass_edit">编辑</a>|<a class="aClass_del">删除</a></td>
                 </tr>
             {% endfor %}
         </table>
         <script type="text/javascript">
             $(document).ready(function () {
-                $("#addAClass").click(function () {
-                    $("#addAClass_background").removeClass("hideModalDialog")
-                })
-                $("#addAClass_background .sureButton").click(function () {
-                    $.ajax({
-                        url:"/addAClass",
-                        type:"post",
-                        data:{"newClassCaption":$("#addAClass_background input").val()},
-                        success:function (data, status) {
-                            newClassData = JSON.parse(data)
-                            $("table#classesCamp").append($("<tr aClass_id='"+newClassData.newClass_id+"'><td>"+newClassData.newClass_caption+"</td><td><a class=\"aClass_edit\">编辑</a>|<a class=\"aClass_del\">删除</a></td></tr>"))
-                            $("#addAClass_background").addClass("hideModalDialog")
-
-                        }
-                    })
-                })
                 var csrftoken = $.cookie('csrftoken');
-
                 function csrfSafeMethod(method) {
                     // these HTTP methods do not require CSRF protection
                     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
@@ -55,6 +44,41 @@
                         }
                     }
                 });
+
+
+                $("#addAClass").click(function () {
+                    $("#addAClass_background").removeClass("hideModalDialog")
+                })
+                $("#classesCamp .aClass_edit").click(function () {
+                    $("#editAClass_background").removeClass("hideModalDialog")
+                    $("#editAClass_background input").attr("theClass_id", $(this).parents("tr").attr("aClass_id"))
+                    $("#editAClass_background input").val($(this).parent().siblings(".aClass_caption").html())
+                })
+                $("#editAClass_background .sureButton").click(function () {
+                    var theEditClassElement = $("#editAClass_background input")
+                    $.ajax({
+                        url:"editAClass",
+                        type:"post",
+                        data:{"editClass_id":theEditClassElement.attr("theClass_id"), "editClass_caption":theEditClassElement.val()},
+                        success:function (data, status) {
+                            $("#classesCamp tr[aclass_id="+theEditClassElement.attr("theClass_id")+"] td.aClass_caption").html(data)
+                            $("#editAClass_background").addClass("hideModalDialog")
+                        }
+                    })
+                })
+                $("#addAClass_background .sureButton").click(function () {
+                    $.ajax({
+                        url:"/addAClass",
+                        type:"post",
+                        data:{"newClassCaption":$("#addAClass_background input").val()},
+                        success:function (data, status) {
+                            newClassData = JSON.parse(data)
+                            $("table#classesCamp").append($("<tr aClass_id='"+newClassData.newClass_id+"'><td>"+newClassData.newClass_caption+"</td><td><a class=\"aClass_edit\">编辑</a>|<a class=\"aClass_del\">删除</a></td></tr>"))
+                            $("#addAClass_background").addClass("hideModalDialog")
+                        }
+                    })
+                })
+
 
 
                 $(".aClass_del").click(function () {

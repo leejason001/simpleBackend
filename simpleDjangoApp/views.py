@@ -23,16 +23,16 @@ def simpleDjangoApp_exchange(request):
 
 def simpleDjangoApp_showClasses(request):
     classesData = models.myClass.objects.all()
-    for data in classesData:
-        data.caption = data.caption.encode("utf-8")
-        print data.caption
-        print type(data.caption)
-        print type(data.id)
 
     return render(request, "classes.html", {"classesData":classesData})
 
 def simpleDjangoApp_editAClass(request):
-    pass
+    theClassModelObject = models.myClass.objects.get(id=request.POST.get("editClass_id"))
+    print theClassModelObject.caption
+    print request.POST.get("editClass_caption")
+    theClassModelObject.caption = request.POST.get("editClass_caption")
+    theClassModelObject.save()
+    return HttpResponse(theClassModelObject.caption)
 
 def simpleDjangoApp_delAClass(request):
     models.myClass.objects.get(id=request.POST.get("delingClass_id")).delete()
