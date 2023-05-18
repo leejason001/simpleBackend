@@ -44,3 +44,7 @@ def simpleDjangoApp_addAClass(request):
     )
 
     return HttpResponse(json.dumps({"newClass_id":newClass.id, "newClass_caption":newClass.caption}))
+
+def simpleDjangoApp_showStudents(request):
+    studentsInfo = models.myStudent.objects.all()
+    return render(request, "students.html", {"studentsInfo":studentsInfo})

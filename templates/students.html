@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>students</title>
+    <script type="text/javascript" src=/font_statics/jq/jquery-1.10.2.min.js></script>
+</head>
+<body>
+    <table>
+        <tr><td>增加一名学生</td></tr>
+        {% for aStudentInfo in studentsInfo %}
+        <tr><td>{{aStudentInfo.name}}</td><td>{{aStudentInfo.cls.caption}}</td></tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>
