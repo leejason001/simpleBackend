@@ -61,4 +61,8 @@ def simpleDjangoApp_addAStudent(request):
     )
     classes = models.myClass.objects.all()
     studentsInfo = models.myStudent.objects.all()
-    return render( request, "students.html", {"classes": classes, "studentsInfo": studentsInfo} )
+    return render(request, "students.html", {"classes": classes, "studentsInfo": studentsInfo})
+
+def simpleDjangoApp_showTeachers(request):
+    teachers = models.myTeacher.objects.all()
+    return render(request, "teachers.html", {"teachers": teachers})

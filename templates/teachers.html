@@ -1,0 +1,23 @@
+{% load myFirst_simple_tage %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table>
+        <tr><td>增加一名老师</td></tr>
+        {% for aTeacher in teachers %}
+        <tr>
+            <td>{{aTeacher.name}}</td>
+            {% myFirst_simple_tag aTeacher as theTeacherClasses %}
+            {% for aClass in theTeacherClasses %}
+            <td>{{aClass.caption}}</td>
+            {% endfor %}
+            <td><a>编辑</a>|<a>删除</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

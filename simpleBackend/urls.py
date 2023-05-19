@@ -28,4 +28,6 @@ urlpatterns = [
     url(r'^addAClass$', views.simpleDjangoApp_addAClass),
     url(r'^students.html$', views.simpleDjangoApp_showStudents, name="students_url"),
     url(r'^addAStudent$', views.simpleDjangoApp_addAStudent),
+    url(r'^teachers.html', views.simpleDjangoApp_showTeachers, name="teachers_url"),
+
 ]
