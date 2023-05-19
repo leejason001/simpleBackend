@@ -46,5 +46,19 @@ def simpleDjangoApp_addAClass(request):
     return HttpResponse(json.dumps({"newClass_id":newClass.id, "newClass_caption":newClass.caption}))
 
 def simpleDjangoApp_showStudents(request):
+    if "GET" == request.method:
+        classes = models.myClass.objects.all()
+        studentsInfo = models.myStudent.objects.all()
+        return render(request, "students.html", {"classes":classes, "studentsInfo":studentsInfo})
+
+def simpleDjangoApp_addAStudent(request):
+    # print request.POST.get("turename")
+    aNewStudent = models.myStudent.objects.create(
+        name = request.POST.get("truename"),
+        cls = models.myClass.objects.get(id=int(request.POST.get("ownClass_id"))),
+        username = request.POST.get("username"),
+        password = request.POST.get("password"),
+    )
+    classes = models.myClass.objects.all()
     studentsInfo = models.myStudent.objects.all()
-    return render(request, "students.html", {"studentsInfo":studentsInfo})
+    return render( request, "students.html", {"classes": classes, "studentsInfo": studentsInfo} )

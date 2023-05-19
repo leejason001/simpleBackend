@@ -3,15 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>students</title>
+    <link type="text/css" rel="stylesheet" href="/font_statics/css/students.css"/>
     <script type="text/javascript" src=/font_statics/jq/jquery-1.10.2.min.js></script>
 </head>
 <body>
+    <div  id="addAStudent_background" class="modalDialogBackground hideModalDialog displayModalDialog">
+        <form method="post" action="addAStudent" class="modalDialog">
+            {% csrf_token %}
+            <div>请输入姓名：<input name="truename" type="text"/></div>
+            <div>请选择班级：<select name="ownClass_id">{% for aClass in classes%}<option value="{{aClass.id}}">{{aClass.caption}}</option>{% endfor %}</select></div>
+            <div>请输入用户名：<input name="username" type="text"/></div>
+            <div>请输入密码：<input name="password" type="password"/></div>
+            <div><input type="submit"/><button>取消</button></div>
+        </form>
+    </div>
     <table>
-        <tr><td>增加一名学生</td></tr>
+        <tr><td id="addAStudent">增加一名学生</td></tr>
         {% for aStudentInfo in studentsInfo %}
-        <tr><td>{{aStudentInfo.name}}</td><td>{{aStudentInfo.cls.caption}}</td></tr>
+        <tr><td>{{aStudentInfo.name}}</td><td>{{aStudentInfo.cls.caption}}</td><td><a>编辑</a>|<a>删除</a></td></tr>
         {% endfor %}
     </table>
-
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#addAStudent").click(function () {
+                $("#addAStudent_background").removeClass("hideModalDialog")
+            })
+        })
+    </script>
 </body>
 </html>

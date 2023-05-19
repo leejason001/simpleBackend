@@ -1,0 +1,11 @@
+.hideModalDialog {
+    display: none !important;
+}
+.displayModalDialog {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.modalDialogBackground .modalDialog {
+    margin: 10%;
+}
