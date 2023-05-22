@@ -65,4 +65,21 @@ def simpleDjangoApp_addAStudent(request):
 
 def simpleDjangoApp_showTeachers(request):
     teachers = models.myTeacher.objects.all()
-    return render(request, "teachers.html", {"teachers": teachers})
+    classes  = models.myClass.objects.all()
+    return render(request, "teachers.html", {"teachers": teachers, "classes": classes})
+
+def simpleDjangoApp_addATeacher(request):
+    teachedClasses = []
+    for teachedClass in request.POST.getlist("teachedClasses"):
+        teachedClasses.append(models.myClass.objects.get(id=int(teachedClass)))
+
+    aNewTeacher = models.myTeacher.objects.create(
+        name = request.POST.get("teacherName"),
+        username = request.POST.get("username"),
+        password = request.POST.get("password"),
+    )
+    aNewTeacher.cls.set(teachedClasses)
+    print aNewTeacher
+    classes = models.myClass.objects.all()
+    teachers = models.myTeacher.objects.all()
+    return render(request, "teachers.html", {"teachers": teachers, "classes": classes})

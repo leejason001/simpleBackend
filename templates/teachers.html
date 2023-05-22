@@ -4,10 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script type="text/javascript" src="/font_statics/jq/jquery-1.10.2.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="/font_statics/css/teachers.css" />
 </head>
 <body>
+    <div id="addTeacher_background" class="modalDialogBackground hideModalDialog displayModalDialog">
+        <form method="post" action="addATeacher" class="modalDialog">
+            {% csrf_token %}
+            <div>请输入教师的姓名：<input type="text" name="teacherName"/></div>
+            <div>请选择授课班级：
+                <select multiple="multiple" name="teachedClasses">
+                    {% for class in classes%}
+                        <option value={{class.id}}>{{class.caption}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>请输入用户名：<input type="text" name="username"/></div>
+            <div>请输入密码：<input type="password" name="password"/></div>
+            <div><input type="submit"/><button>取消</button></div>
+        </form>
+    </div>
     <table>
-        <tr><td>增加一名老师</td></tr>
+        <tr><td id="addATeacher">增加一名老师</td></tr>
         {% for aTeacher in teachers %}
         <tr>
             <td>{{aTeacher.name}}</td>
@@ -19,5 +37,13 @@
         </tr>
         {% endfor %}
     </table>
+    <script>
+        $(document).ready(function () {
+            $("#addATeacher").click(function () {
+                $("#addTeacher_background").removeClass("hideModalDialog")
+            })
+
+        })
+    </script>
 </body>
 </html>
